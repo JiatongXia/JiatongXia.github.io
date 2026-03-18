@@ -1,0 +1,272 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta name="description"
+        content="Points-to-3D: Structure-Aware 3D Generation with Point Cloud Priors. A diffusion-based framework leveraging point cloud priors for geometry-controllable 3D generation.">
+  <meta name="keywords" content="Points-to-3D, 3D Generation, Point Cloud, TRELLIS, Diffusion Models">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Points-to-3D: Structure-Aware 3D Generation with Point Cloud Priors</title>
+
+  <!-- Global site tag (gtag.js) - Google Analytics -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-PYVRSFMDRL"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+
+    function gtag() {
+      dataLayer.push(arguments);
+    }
+
+    gtag('js', new Date());
+
+    gtag('config', 'G-PYVRSFMDRL');
+  </script>
+
+  <link href="https://fonts.googleapis.com/css?family=Google+Sans|Noto+Sans|Castoro"
+        rel="stylesheet">
+
+  <link rel="stylesheet" href="./static/css/bulma.min.css">
+  <link rel="stylesheet" href="./static/css/bulma-carousel.min.css">
+  <link rel="stylesheet" href="./static/css/bulma-slider.min.css">
+  <link rel="stylesheet" href="./static/css/fontawesome.all.min.css">
+  <link rel="stylesheet"
+        href="https://cdn.jsdelivr.net/gh/jpswalsh/academicons@1/css/academicons.min.css">
+  <link rel="stylesheet" href="./static/css/index.css">
+  <link rel="icon" href="./static/images/favicon.svg">
+
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+  <script defer src="./static/js/fontawesome.all.min.js"></script>
+  <script src="./static/js/bulma-carousel.min.js"></script>
+  <script src="./static/js/bulma-slider.min.js"></script>
+  <script src="./static/js/index.js"></script>
+</head>
+<body>
+
+
+
+<section class="hero">
+  <div class="hero-body">
+    <div class="container is-max-desktop">
+      <div class="columns is-centered">
+        <div class="column has-text-centered">
+          <h1 class="title is-1 publication-title">Points-to-3D: Structure-Aware 3D Generation with Point Cloud Priors</h1>
+          <h2 class="title is-3" style="margin-top: -0.5rem;">CVPR 2026</h2>
+          <div class="is-size-5 publication-authors">
+            <span class="author-block">
+              <a href="https://www.linkedin.com/in/jiatong-xia/?locale=en_US">Jiatong Xia</a><sup>*</sup>,</span>
+            <span class="author-block">
+              <a href="https://zichengduan.github.io/">Zicheng Duan</a><sup>*</sup>,</span>
+            <span class="author-block">
+              <a href="https://cs.adelaide.edu.au/~hengel/">Anton van den Hengel</a>,
+            </span>
+            <span class="author-block">
+              <a href="https://researchers.adelaide.edu.au/profile/lingqiao.liu">Lingqiao Liu</a><sup>†</sup>
+            </span>
+          </div>
+
+          <div class="is-size-5 publication-authors">
+            <span class="author-block">Australian Institute for Machine Learning, University of Adelaide</span>
+          </div>
+
+          <div class="is-size-6 publication-authors" style="margin-top: 10px;">
+            <span class="author-block"><sup>*</sup>Equal contribution</span>
+            <span class="author-block"><sup>†</sup>Corresponding author</span>
+          </div>
+
+          <div class="column has-text-centered">
+            <div class="publication-links">
+              <!-- PDF Link. -->
+              <span class="link-block">
+                <a href="./CVPR_2026.pdf"
+                   class="external-link button is-normal is-rounded is-dark">
+                  <span class="icon">
+                      <i class="fas fa-file-pdf"></i>
+                  </span>
+                  <span>Paper</span>
+                </a>
+              </span>
+              <span class="link-block">
+                <a href="#"
+                   class="external-link button is-normal is-rounded is-dark">
+                  <span class="icon">
+                      <i class="ai ai-arxiv"></i>
+                  </span>
+                  <span>arXiv (Coming Soon)</span>
+                </a>
+              </span>
+              <!-- Code Link. -->
+              <span class="link-block">
+                <a href="#"
+                   class="external-link button is-normal is-rounded is-dark">
+                  <span class="icon">
+                      <i class="fab fa-github"></i>
+                  </span>
+                  <span>Code (Coming Soon)</span>
+                  </a>
+              </span>
+            </div>
+
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="hero teaser">
+  <div class="container is-max-desktop">
+    <div class="hero-body">
+      <img src="./static/images/teaser.png" alt="Points-to-3D Teaser" style="width: 100%; height: auto;">
+      <h2 class="subtitle has-text-centered" style="margin-top: 20px;">
+        We introduce explicit 3D point cloud priors into 3D generation framework. Given a pre-existing point cloud or
+        a feed-forward point cloud prediction from image input, our model generates high-quality 3D assets that
+        faithfully preserve the observed structure while plausibly completing unobserved regions with coherent geometry.
+      </h2>
+    </div>
+  </div>
+</section>
+
+<section class="section">
+  <div class="container is-max-desktop">
+    <!-- Abstract. -->
+    <div class="columns is-centered has-text-centered">
+      <div class="column is-four-fifths">
+        <h2 class="title is-3">Abstract</h2>
+        <div class="content has-text-justified">
+          <p>
+            Recent progress in 3D generation has been driven largely by models conditioned on images or text,
+            while readily available 3D priors are still underused. In many real-world scenarios, visible-region
+            point clouds are easy to obtain—from active sensors such as LiDAR or from feed-forward predictors
+            like VGGT—offering explicit geometric constraints that current methods fail to exploit.
+          </p>
+          <p>
+            In this work, we introduce <span class="dnerf">Points-to-3D</span>, a diffusion-based framework that
+            leverages point cloud priors for geometry-controllable 3D asset and scene generation. Built on the latent
+            3D diffusion model TRELLIS, Points-to-3D first replaces pure-noise sparse structure latent initialization
+            with a point cloud priors tailored input formulation. A structure inpainting network, trained within the
+            TRELLIS framework on task-specific data designed to learn global structural inpainting, is then used for
+            inference with a staged sampling strategy (structural inpainting followed by boundary refinement),
+            completing the global geometry while preserving the visible regions of the input priors.
+          </p>
+          <p>
+            In practice, Points-to-3D can take either accurate point-cloud priors or VGGT-estimated point clouds from
+            single images as input. Experiments on both single-object and multi-object scenarios consistently demonstrate
+            superior performance over state-of-the-art baselines in terms of rendering quality and geometric fidelity,
+            highlighting the effectiveness of explicitly embedding point-cloud priors for achieving more accurate and
+            structurally controllable 3D generation.
+          </p>
+        </div>
+      </div>
+    </div>
+    <!--/ Abstract. -->
+
+
+<section class="hero is-light is-small" style="margin-top: 60px;">
+  <div class="hero-body">
+    <div class="container">
+      <h2 class="title is-3 has-text-centered">Our Framework</h2>
+      <div class="content has-text-centered">
+        <img src="./static/images/pipeline.png" alt="Our Framework" style="max-width: 100%; height: auto;">
+        <p class="has-text-justified" style="margin-top: 20px;">
+          <strong>Points-to-3D framework.</strong> Given point cloud priors—either pre-existing or predicted by VGGT from input image—we first
+          voxelize and VAE-encode it to obtain an SS latent, where the empty regions are filled with random noise and concatenated with an
+          extracted mask to form the input paradigm for our model. During training, we optimize our inpainting flow transformer via conditional
+          flow matching loss. During inference, we employ a two-stage sampling procedure: (1) structural inpainting with s steps to inpaint
+          the global structure, and (2) boundary refinement with remaining (t-s) steps to refine the inpainting boundaries.
+        </p>
+      </div>
+    </div>
+  </div>
+</section>
+
+
+
+
+
+    <!-- Point Cloud Examples -->
+    <div class="columns is-centered has-text-centered" style="margin-top: 70px;">
+      <div class="column is-full-width">
+        <h2 class="title is-3">Point Cloud Priors</h2>
+        <div class="content has-text-centered">
+          <img src="./static/images/pc_demo.png" alt="Point Cloud Examples" style="max-width: 70%; height: auto;">
+          <p class="has-text-justified" style="margin-top: 20px;">
+            <strong>Input point cloud priors examples.</strong> We support two types of point cloud priors: (1) <strong>Sampled Point Cloud</strong> -
+            partial captured ground truth point clouds, and (2) <strong>VGGT Estimated</strong> -
+            point clouds estimated from input images via feed-forward point-map prediction. Both types impose reliable geometric constraints
+            that steer our model toward controllable and faithful 3D generation.
+          </p>
+        </div>
+      </div>
+    </div>
+    <!--/ Point Cloud Examples. -->
+  </div>
+</section>
+
+
+<section class="section">
+  <div class="container is-max-desktop">
+
+    <!-- Results Title -->
+    <div class="columns is-centered has-text-centered">
+      <div class="column is-full-width">
+        <h2 class="title is-2">Generation Results</h2>
+      </div>
+    </div>
+
+    <div class="columns is-centered" style="margin-top: 40px;">
+      <div class="column is-full-width">
+        <div class="content">
+          <img src="./static/images/img23d.png" alt="Generation Results" style="width: 90%; height: auto; display: block; margin: 0 auto;">
+          <p class="has-text-justified" style="margin-top: 15px;">
+            Our method demonstrates consistent high-quality results across diverse object categories
+            and scene types, highlighting the effectiveness of explicitly embedding point-cloud priors for achieving accurate and structurally
+            controllable 3D generation.
+          </p>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+
+<section class="section" id="BibTeX">
+  <div class="container is-max-desktop content">
+    <h2 class="title">BibTeX</h2>
+    <pre><code>@inproceedings{xia2026points2-3d,
+  author    = {Xia, Jiatong and Duan, Zicheng and van den Hengel, Anton and Liu, Lingqiao},
+  title     = {Points-to-3D: Structure-Aware 3D Generation with Point Cloud Priors},
+  booktitle = {Proceedings of the IEEE/CVF Conference on Computer Vision and Pattern Recognition (CVPR)},
+  year      = {2026},
+}</code></pre>
+  </div>
+</section>
+
+
+<footer class="footer">
+  <div class="container">
+    <div class="content has-text-centered">
+      <a class="icon-link"
+         href="./CVPR_2026.pdf">
+        <i class="fas fa-file-pdf"></i>
+      </a>
+      <a class="icon-link" href="#" class="external-link">
+        <i class="fab fa-github"></i>
+      </a>
+    </div>
+    <div class="columns is-centered">
+      <div class="column is-8">
+        <div class="content has-text-centered">
+          <p>
+            This website is adapted from <a href="https://github.com/nerfies/nerfies.github.io">Nerfies</a>,
+            licensed under a <a rel="license" href="http://creativecommons.org/licenses/by-sa/4.0/">Creative
+            Commons Attribution-ShareAlike 4.0 International License</a>.
+          </p>
+        </div>
+      </div>
+    </div>
+  </div>
+</footer>
+
+</body>
+</html>
